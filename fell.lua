@@ -160,6 +160,8 @@ function refillEmpty()
         end
         ::continue::
     end
+    turtle.select(sapling)
+    turtle.suck()
     turtle.turnLeft()
     
      -- drop wood
@@ -186,15 +188,26 @@ function fell()
 end
 
 function column()
+    local heightReached = 0
+
     while turtle.detectUp() == true do
         turtle.digUp()
         turtle.up()
+        heightReached = heightReached + 1
         turtle.suck()
     end
-    while turtle.detectDown() == false do
+    -- while turtle.detectDown() == false do
+    --     turtle.down()
+    --     turtle.suck()
+    -- end
+
+    for j = 1,heightReached - 1 do
+        turtle.digDown()
         turtle.down()
         turtle.suck()
     end
+    turtle.down()
+    turtle.suck()
 end
 
 function plant()
@@ -302,6 +315,9 @@ end
 function forwardPass()
     say("Beginning Forward Pass..")
     for j = 1,verticalSize do
+        if checkIfSpotEmpty() == false then
+            print("TRYING TO FORWARD WHEN BLOCK BLOCKS.")
+        end
         turtle.forward()
         turtle.suck()
         table.insert(movementStack, "forward")
@@ -334,6 +350,9 @@ end
 function backwardPass()
     say("Beginning Backward Pass..")
     for j = 1,verticalSize do
+        if checkIfSpotEmpty() == false then
+            print("TRYING TO FORWARD WHEN BLOCK BLOCKS.")
+        end
         turtle.forward()
         turtle.suck()
         table.insert(movementStack, "forward")
