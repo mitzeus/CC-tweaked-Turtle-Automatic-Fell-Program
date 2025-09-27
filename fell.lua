@@ -6,6 +6,7 @@
 -- slot 1 coal 
 -- slot 2 sapling
 -- slot 3 bonemeal
+
 coal = 1
 sapling = 2
 boneMeal = 3
@@ -25,9 +26,6 @@ function say(msg)
         print(msg)
     end
 end
-
-
-
 
 function forwardCheckMove() 
     ensureFuel(MINFUEL)
@@ -107,28 +105,16 @@ while true do
     write("Vertical Size> ")
     local v = tonumber(read())
     
-    -- for maximum of 63 saplings
-    -- local h_real = h * 2
-    -- local v_real = v * 2
-    -- local sapling_requirement = (h_real * v_real)
     if h > 0 and h < 51 and v > 0 and v < 51 then 
 
-    --     h_real = h * 2
-    --     v_real = v * 2
         horizontalSize = h
         verticalSize = v
         print(string.format("Horizontal Size set to: %d", horizontalSize))
         print(string.format("Vertical Size set to: %d", verticalSize))
         break
     end
-    -- if sapling_requirement < 64 then
-    --     horizontalSize = h
-    --     verticalSize = v
-    --     break
-    -- end
 
     print("Unsupported Input: Minimum: 1, Maximum: 50")
-    -- print(string.format("Size cannot exceed the need of more than 63 saplings. Current %s", sapling_requirement))
 end
 
 
@@ -182,6 +168,7 @@ end
 function refillEmpty()
     say("Refilling resources..")
     -- assuming default position
+    
     -- coal
     turtle.turnLeft()
     coalDetails = turtle.getItemDetail(coal)
@@ -196,25 +183,8 @@ function refillEmpty()
             
             sleep(5)
         end
-        -- sleep(5)
         print("Coal provided. Continuing..")
     end
-
-    -- turtle.select(coal)
-    -- coalLeft = turtle.getItemCount(coal)
-    -- -- turtle.suck(64 - coalLeft)
-
-    -- if coalLeft == 0 then
-    --     print("Waiting for Coal to be Put in Chest..")
-    --     while true do
-    --         local amount = turtle.getItemCount(coal)
-    --         if amount > 0 or turtle.suck() == true then
-    --             break
-    --         end
-    --         sleep(5)
-    --     end
-    --     print("Coal provided. Continuing..")
-    -- end
 
     turtle.turnRight()
     
@@ -289,10 +259,6 @@ function column()
         heightReached = heightReached + 1
         turtle.suck()
     end
-    -- while turtle.detectDown() == false do
-    --     turtle.down()
-    --     turtle.suck()
-    -- end
 
     for j = 1,heightReached - 1 do
         ensureFuel(MINFUEL)
@@ -315,35 +281,11 @@ function plant()
     end
 end 
 
--- function goRefill()
---     returnHome()
---     refillEmpty()
---     returnBack()
--- end
-
 function checkTreeExists(direction)
     say("Checks if tree exists..")
     turtle.select(sapling)
     local success, block = turtle.inspect()
     local item = turtle.getItemDetail()
-
-    -- if item == nil then
-    --     if direction == "left" then
-    --         turtle.turnRight()
-    --     elseif direction == "right" then
-    --         turtle.turnLeft()
-    --     end
-        
-    --     goRefill()
-    --     local item = turtle.getItemDetail()
-
-    --     if direction == "left" then
-    --         turtle.turnLeft()
-    --     elseif direction == "right" then
-    --         turtle.turnRight()
-    --     end
-
-    -- end
 
     if checkIfSpotEmpty() == true then
         -- is air
@@ -385,7 +327,8 @@ function checkAroundForTrees()
         fell()
         plant()
     end
-    
+
+    -- check right
     turtle.turnRight()
     turtle.turnRight()
     turtle.suck()
@@ -402,10 +345,6 @@ function checkAroundForTrees()
     turtle.turnLeft()  
 end
 
--- turtle.forward() -- first step to go in front of chests
--- table.insert(movementStack, "forward")
-
-
 function forwardPass()
     say("Beginning Forward Pass..")
     for j = 1,verticalSize do
@@ -417,8 +356,6 @@ function forwardPass()
         table.insert(movementStack, "forward")
         checkAroundForTrees()
     end
-
-
 
     -- pass done, turn for backwards pass
     turtle.suck()
