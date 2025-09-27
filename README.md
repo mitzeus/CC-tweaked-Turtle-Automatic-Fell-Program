@@ -12,7 +12,7 @@ Verbosity enables verbose messages in the turtle terminal, logging all activity.
 
 #### SafeDig
 
-SafeDig is a featured that, when enabled, will prevent the turtle from mining "unauthorized" blocks (blocks that are not part of felling). This ensures that if the turtle gets lost, confused or in any way behave incorrectly, it won't interfere with the environment and will wait for use to remove block.
+SafeDig is a featured that, when enabled, will prevent the turtle from mining "unauthorized" blocks (blocks that are not part of felling). This ensures that if the turtle gets lost, confused or in any way behave incorrectly, it won't interfere with the environment and will wait for a user to manually remove the block.
 
 This setting is recommended to be enabled as not to cause unintentional griefing. Foliage interfereing with the felling process (including descending when done) will automatically be cleared and is not affected by this setting.
 
