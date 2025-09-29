@@ -43,7 +43,17 @@ function forwardCheckMove()
             end
         end
     end
-    turtle.forward()
+
+    while not turtle.forward() do
+        print("Failed to move.")
+        if SAFEDIG == true then
+            print("SafeDig enabled. Waiting for manual clearance..")
+        
+        elseif SAFEDIG == false then
+            print("SafeDig disabled. Digging..")
+            turtle.dig()
+        end
+    end
 end
 
 function clearTerminal()
@@ -255,7 +265,16 @@ function column()
     while turtle.detectUp() == true do
         ensureFuel(MINFUEL)
         turtle.digUp()
-        turtle.up()
+        while not turtle.up() do
+        print("Failed to move.")
+        if SAFEDIG == true then
+            print("SafeDig enabled. Waiting for manual clearance..")
+        
+        elseif SAFEDIG == false then
+            print("SafeDig disabled. Digging..")
+            turtle.digUp()
+        end
+    end
         heightReached = heightReached + 1
         turtle.suck()
     end
@@ -263,10 +282,28 @@ function column()
     for j = 1,heightReached - 1 do
         ensureFuel(MINFUEL)
         turtle.digDown()
-        turtle.down()
+        while not turtle.down() do
+        print("Failed to move.")
+        if SAFEDIG == true then
+            print("SafeDig enabled. Waiting for manual clearance..")
+        
+        elseif SAFEDIG == false then
+            print("SafeDig disabled. Digging..")
+            turtle.digDown()
+        end
+    end
         turtle.suck()
     end
-    turtle.down()
+    while not turtle.down() do
+        print("Failed to move.")
+        if SAFEDIG == true then
+            print("SafeDig enabled. Waiting for manual clearance..")
+        
+        elseif SAFEDIG == false then
+            print("SafeDig disabled. Digging..")
+            turtle.digDown()
+        end
+    end
     turtle.suck()
 end
 
