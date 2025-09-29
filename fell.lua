@@ -262,7 +262,7 @@ end
 function column()
     local heightReached = 0
 
-    while turtle.detectUp() == true do
+    while turtle.detectUp() == true and heightReached < 5 do
         ensureFuel(MINFUEL)
         turtle.digUp()
         while not turtle.up() do
